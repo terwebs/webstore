@@ -22,7 +22,6 @@ const cartSlice = createSlice({
       return defaultState;
     },
     addItem: (state, action) => {
-      console.log(action.payload);
       const { product } = action.payload;
       const item = state.cartItems.find((itm) => itm.cartID === product.cartID);
       item

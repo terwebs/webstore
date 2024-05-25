@@ -12,7 +12,7 @@ export default function ProductsList() {
         return (
           <Link
             to={`/products/${product.sys.id}`}
-            className="p-8 rounded-lg flex sm:flex-row gap-y-4 flex-wrap bg-base-100 shadow-xl hover:shadow-2xl duration-300 group"
+            className="p-8 rounded-lg flex flex-col sm:flex-row gap-y-4 flex-wrap bg-base-100 shadow-xl hover:shadow-2xl duration-300 group"
             key={product.sys.id}
           >
             <img
@@ -29,7 +29,7 @@ export default function ProductsList() {
                 {company}
               </h4>
             </div>
-            <p className="text-secondary  font-medium ml-0 sm:ml-auto text-xl">
+            <p className="text-secondary font-medium ml-0 sm:ml-auto text-xl">
               {convertedPrice}
             </p>
           </Link>

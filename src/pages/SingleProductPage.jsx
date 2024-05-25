@@ -27,7 +27,6 @@ export default function SingleProductPage() {
 
   const sizes = product.product.fields.size?.size ?? [];
 
-  console.log(sizes.length);
   const image = product.product.fields.image.fields.file.url;
   const productID = product.product.sys.id;
 
@@ -94,7 +93,7 @@ export default function SingleProductPage() {
           </h1>
           <h4 className="text-xl text-neutral font-bold mt-2">{company}</h4>
           <p className="mt-3 text-xl font-bold">{convertedPrice}</p>
-          <p className="mt-6 text-cl">{category}</p>
+          <p className="mt-6 text-cl capitalize">{category}</p>
           <p className="mt-6 text-cl">{description ? description : ""}</p>
 
           {/* Size */}
@@ -109,8 +108,8 @@ export default function SingleProductPage() {
                     <button
                       key={i}
                       type="button"
-                      className={`badge w-24 h-6 capitalize btn btn-primary ${
-                        i === productSize && "font-bold btn-secondary"
+                      className={`badge w-24 h-6 capitalize btn border-2 border-primary ${
+                        i === productSize && "font-bold btn-primary"
                       }`}
                       onClick={() => setProductSize(i)}
                     >
