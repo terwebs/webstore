@@ -1,5 +1,5 @@
 import { Outlet, useNavigation } from "react-router-dom";
-import Navbar from "../components/NavBar";
+import Navbar from "../components/Navbar";
 import Loading from "../components/Loading";
 // import { Header, Navbar, Loading } from "../components";
 

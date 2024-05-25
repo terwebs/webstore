@@ -5,7 +5,7 @@ import { useState } from "react";
 import { createClient } from "contentful";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addItem } from "../features/cart/CartSlice";
+import { addItem } from "../features/cart/cartSlice";
 
 const client = createClient({
   space: "6n3ggdxvlwai",
