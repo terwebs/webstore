@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { BsFillGridFill, BsList } from "react-icons/bs";
 
 export default function ProductContainer() {
-  const { response, products } = useLoaderData();
+  const { response } = useLoaderData();
   const totalProducts = response.data.total;
 
   const [layout, setLayout] = useState(() => {

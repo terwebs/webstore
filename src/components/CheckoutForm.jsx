@@ -3,7 +3,7 @@ import FormInput from "./FormInput";
 import SubmitButton from "./SubmitButton";
 import { formatPrice } from "../utils";
 import { toast } from "react-toastify";
-import { clearCart } from "../features/cart/CartSlice";
+import { clearCart } from "../features/cart/cartSlice";
 import { addOrder } from "../features/orders/ordersSlice";
 import { nanoid } from "nanoid";
 
