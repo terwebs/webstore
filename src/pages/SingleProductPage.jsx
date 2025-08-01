@@ -6,6 +6,7 @@ import { createClient } from "contentful";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addItem } from "../features/cart/cartSlice";
+import ImageSlider from "../components/ImageSlider";
 
 const client = createClient({
   space: "6n3ggdxvlwai",
@@ -22,7 +23,7 @@ export const loader = async ({ params }) => {
 
 export default function SingleProductPage() {
   const product = useLoaderData();
-  const { title, price, company, category, description } =
+  const { title, price, company, category, description, weight, measurements } =
     product.product.fields;
 
   const sizes = product.product.fields.size?.size ?? [];
@@ -33,6 +34,13 @@ export default function SingleProductPage() {
   const convertedPrice = formatPrice(price);
   const [productSize, setProductSize] = useState(sizes[0] || []);
   const [quantity, setQuantity] = useState(1);
+
+  const imageAssets = product.product.fields.images;
+
+  const imageUrls = imageAssets.map(
+    (asset) => `https:${asset.fields.file.url}`
+  );
+  console.log(imageUrls);
 
   const handleQuantity = (e) => {
     setQuantity(e.target.value);
@@ -82,22 +90,32 @@ export default function SingleProductPage() {
       </div>
       {/*  PRODUCT */}
       <div className="mt-6 grid ggap-y-8 lg:grid-cols-2 lg:gap-x-16">
-        <img
+        {/* <img
           src={image}
           alt={title}
+          className="w-96 h-auto object-cover rounded-lg lg:w-full"
+        /> */}
+        <ImageSlider
+          images={imageUrls}
           className="w-96 h-auto object-cover rounded-lg lg:w-full"
         />
         <div>
           <h1 className="capitalize text-3xl font-bold text-primary ">
             {title}
           </h1>
-          <h4 className="text-xl text-neutral font-bold mt-2">{company}</h4>
+
           <p className="mt-3 text-xl font-bold">{convertedPrice}</p>
-          <p className="mt-6 text-cl capitalize">{category}</p>
+          {/* <h4 className="text-xl text-neutral font-bold mt-2">
+            Categoria: {category}
+          </h4> */}
+
           <p className="mt-6 text-cl">{description ? description : ""}</p>
+          <p className="mt-6 text-cl">Categoria: {category}</p>
+          <p className="mt-6 text-cl">Peso: {weight} g</p>
+          <p className="mt-6 text-cl">Medidas: {measurements}</p>
 
           {/* Size */}
-          {sizes.length > 0 ? (
+          {/* {sizes.length > 0 ? (
             <div className="mt-6">
               <h4 className="mt-6 font-medium tracking-wider capitalize">
                 size
@@ -119,9 +137,9 @@ export default function SingleProductPage() {
                 })}
               </div>
             </div>
-          ) : null}
+          ) : null} */}
           {/* QUANTITY */}
-          <div className="form-control w-full max-w-xs mt-8">
+          {/* <div className="form-control w-full max-w-xs mt-8">
             <label className="label p-0" htmlFor="quantity">
               <h4 className="text-md font-medium tracking-wider">Quantity</h4>
             </label>
@@ -134,13 +152,13 @@ export default function SingleProductPage() {
             >
               {generateOptions()}
             </select>
-          </div>
+          </div> */}
           {/* CART BTN */}
-          <div className="mt-10">
+          {/* <div className="mt-10">
             <button className="btn btn-secondary btn-md" onClick={addtoCart}>
               Add to Cart
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

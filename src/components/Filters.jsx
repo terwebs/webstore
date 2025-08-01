@@ -20,22 +20,22 @@ export default function Filters() {
   const [search, setSearch] = useState(defaultSearch || "");
   const [category, setCategory] = useState(defaultCategory);
   const [company, setCompany] = useState(defaultCompany);
-  const [price, setPrice] = useState(defaultPrice || 10000);
+  const [price, setPrice] = useState(defaultPrice || 20000);
 
   // Function to handle form reset
   const handleReset = () => {
     setSearch("");
     setCategory("All");
     setCompany("All");
-    setPrice(10000);
+    setPrice(20000);
   };
 
   return (
-    <Form className="bg-base-200 rounded-md px-8 py-4 grid gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center">
+    <Form className="bg-base-200 rounded-md px-8 py-4 grid gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 items-center">
       {/* SEARCH */}
       <FormInput
         type="search"
-        label="search product"
+        label="buscar producto"
         name="fields.title[match]"
         size="input-sm"
         value={search}
@@ -43,7 +43,7 @@ export default function Filters() {
       />
       {/* CATEGORIES */}
       <FormSelect
-        label="select category"
+        label="selecctiona categoria"
         name="fields.category[match]"
         list={categories}
         size="select-sm"
@@ -52,17 +52,17 @@ export default function Filters() {
         onChange={(e) => setCategory(e.target.value)}
       />
       {/* COMPANIES */}
-      <FormSelect
+      {/* <FormSelect
         label="select company"
         name="fields.company[match]"
         list={companies}
         size="select-sm"
         value={company}
         onChange={(e) => setCompany(e.target.value)}
-      />
+      /> */}
       {/* PRICE */}
       <FormRange
-        label="Select Price"
+        label="Selecciona precio"
         name="fields.price[lte]"
         size="range-sm"
         price={price}
@@ -71,14 +71,14 @@ export default function Filters() {
       />
       {/* BUTTONS */}
       <button type="submit" className="btn btn-primary btn-sm ">
-        search
+        Buscar
       </button>
       <Link
         className="btn btn-accent btn-sm"
         onClick={handleReset}
         to="/products"
       >
-        Reset
+        Reiniciar
       </Link>
     </Form>
   );

@@ -23,8 +23,8 @@ export default function ProductsGrid() {
               />
             </figure>
             <div className="card-body items-center text-center">
-              <h2 className="card-title capitalize tracking-wider">{title}</h2>
-              <span className="text-secondary">{convertedPrice}</span>
+              <h2 className="card-title  capitalize tracking-wider">{title}</h2>
+              <span>{convertedPrice}</span>
             </div>
           </Link>
         );

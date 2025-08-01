@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { MdSunny } from "react-icons/md";
 import NavLinks from "./NavLinks";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.jpg";
 
 // use this to load the data from redux state
 import { useSelector } from "react-redux";
@@ -75,14 +75,14 @@ export default function Navbar() {
           </label>
 
           {/* CART LINK*/}
-          <NavLink to="cart" className="btn btn-ghost btn-circle btn-md ml-4">
+          {/* <NavLink to="cart" className="btn btn-ghost btn-circle btn-md ml-4">
             <div className="indicator">
               <BsCart3 className="h-6 w-6" />
               <span className="badge badge-sm badge-primary indicator-item">
                 {numItemsInCart}
               </span>
             </div>
-          </NavLink>
+          </NavLink> */}
         </div>
       </div>
     </nav>

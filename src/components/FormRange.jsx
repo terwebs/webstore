@@ -9,8 +9,8 @@ export default function FormRange({
   value,
   onChange,
 }) {
-  const step = 500;
-  const maxPrice = 10000;
+  const step = 5000;
+  const maxPrice = 50000;
   // const [selectedPrice, setSelectedPrice] = useState(price || maxPrice);
   return (
     <div className="form-control">

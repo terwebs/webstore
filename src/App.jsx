@@ -44,20 +44,20 @@ const router = createBrowserRouter([
         errorElement: <Error />,
         loader: singleProductLoader,
       },
-      {
-        path: "cart",
-        element: <CartPage />,
-      },
+      // {
+      //   path: "cart",
+      //   element: <CartPage />,
+      // },
       { path: "about", element: <AboutPage /> },
-      {
-        path: "checkout",
-        element: <CheckoutPage />,
-        action: checkoutAction(store),
-      },
-      {
-        path: "orders",
-        element: <OrdersPage />,
-      },
+      // {
+      //   path: "checkout",
+      //   element: <CheckoutPage />,
+      //   action: checkoutAction(store),
+      // },
+      // {
+      //   path: "orders",
+      //   element: <OrdersPage />,
+      // },
     ],
   },
 ]);

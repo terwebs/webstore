@@ -12,18 +12,15 @@ export default function Hero() {
     <div className=" grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
       <div>
         <h1 className="max-w-2xl text-4xl font-bold tracking-tight  sm:text-6xl ">
-          Hi there, this is my <span className="text-primary">Webs</span>tore.
+          <span className="text-primary">Ember</span> brilla distinto.
         </h1>
 
         <p className="mt-8 max-w-xl text-lg leading-8">
-          This is a Demo Website developed by{" "}
-          <span className="text-primary font-bold">Webster</span> to pracitce
-          ReactJS, Redux Toolkit, React Router, Daisy UI + Tailwind, integrated
-          with Contentful CMS.
+          Cada chispa guarda una historia
         </p>
         <div className="mt-10 ">
           <Link to="products" className="btn btn-primary rounded-lg">
-            Our Products
+            Nuestros Productos
           </Link>
         </div>
       </div>

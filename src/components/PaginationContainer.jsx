@@ -32,7 +32,7 @@ export default function PagintationContainer() {
               handlePageChange(prevPage);
             }}
           >
-            Prev
+            Anterior
           </button>
         ) : null}
         {pages.map((pageNumber) => {
@@ -59,7 +59,7 @@ export default function PagintationContainer() {
               handlePageChange(nextPage);
             }}
           >
-            Next
+            Siguiente
           </button>
         ) : null}
       </div>

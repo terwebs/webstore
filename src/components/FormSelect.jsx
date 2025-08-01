@@ -18,7 +18,7 @@ export default function FormSelect({
         onChange={onChange}
         className={`select select-bordered ${size}`}
       >
-        <option value={""}>All</option>
+        <option value={""}>Todas</option>
         {list.map((item) => {
           return (
             <option className="capitalize" key={item}>
