@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Stolen Love";
+  src: url("/fonts/StolenLove.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 @layer components {
   .align-elements {
     @apply mx-auto max-w-6xl px-8;

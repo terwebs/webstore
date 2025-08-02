@@ -6,7 +6,7 @@ export default function ProductsList() {
   return (
     <div className="mt-12 grid gap-y-8 ">
       {products.map((product) => {
-        const { title, price, company } = product.fields;
+        const { title, price, description } = product.fields;
         const imageUrl = product.imageUrl;
         const convertedPrice = formatPrice(price);
         return (
@@ -22,14 +22,9 @@ export default function ProductsList() {
             />
 
             <div className="ml-0 sm:ml-16">
-              <h3 className="capitalize font-medium text-lg text-primary">
-                {title}
-              </h3>
-              <h4 className="capitalize font-medium text-md text-neutral-content">
-                {company}
-              </h4>
+              <h3 className="capitalize font-medium text-xl">{title}</h3>
             </div>
-            <p className="text-secondary font-medium ml-0 sm:ml-auto text-xl">
+            <p className=" font-medium ml-0 sm:ml-auto text-lg">
               {convertedPrice}
             </p>
           </Link>

@@ -31,7 +31,7 @@ export default function Filters() {
   };
 
   return (
-    <Form className="bg-base-200 rounded-md px-8 py-4 grid gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 items-center">
+    <Form className="bg-base-200 rounded-md px-8 py-4 grid gap-x-4 gap-y-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 items-center">
       {/* SEARCH */}
       <FormInput
         type="search"
@@ -61,14 +61,16 @@ export default function Filters() {
         onChange={(e) => setCompany(e.target.value)}
       /> */}
       {/* PRICE */}
-      <FormRange
-        label="Selecciona precio"
-        name="fields.price[lte]"
-        size="range-sm"
-        price={price}
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
-      />
+      <div className="hidden md:block">
+        <FormRange
+          label="Selecciona precio"
+          name="fields.price[lte]"
+          size="range-sm"
+          price={price}
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
+      </div>
       {/* BUTTONS */}
       <button type="submit" className="btn btn-primary btn-sm ">
         Buscar

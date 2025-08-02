@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { MdSunny } from "react-icons/md";
 import NavLinks from "./NavLinks";
-import logo from "../assets/logo.jpg";
+import logo from "../assets/logo.png";
 
 // use this to load the data from redux state
 import { useSelector } from "react-redux";
@@ -44,7 +44,7 @@ export default function Navbar() {
             to="/"
             className="hidden lg:flex  text-3xl items-center rounded-box"
           >
-            <img src={logo} className="w-14" />
+            <img src={logo} className="w-12" />
           </NavLink>
           {/* DROPDOWN */}
           <div className="dropdown">

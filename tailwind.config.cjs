@@ -3,7 +3,12 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        clicker: ["clicker Script", "cursive"],
+        stolen: ["'Stolen Love'", "'cursive'"],
+      },
+    },
   },
   daisyui: {
     themes: [
@@ -11,6 +16,7 @@ export default {
         pastel: {
           ...require("daisyui/src/theming/themes")["pastel"],
           "rounded-box": "1rem",
+          neutral: "#3d4451",
         },
       },
       {

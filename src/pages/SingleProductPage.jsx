@@ -23,8 +23,16 @@ export const loader = async ({ params }) => {
 
 export default function SingleProductPage() {
   const product = useLoaderData();
-  const { title, price, company, category, description, weight, measurements } =
-    product.product.fields;
+  const {
+    title,
+    price,
+    company,
+    category,
+    description,
+    weight,
+    measurements,
+    material,
+  } = product.product.fields;
 
   const sizes = product.product.fields.size?.size ?? [];
 
@@ -81,10 +89,10 @@ export default function SingleProductPage() {
       <div className="text-md breadcrumbs">
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">Inicio</Link>
           </li>
           <li>
-            <Link to="/products">Products</Link>
+            <Link to="/products">Productos</Link>
           </li>
         </ul>
       </div>
@@ -111,8 +119,15 @@ export default function SingleProductPage() {
 
           <p className="mt-6 text-cl">{description ? description : ""}</p>
           <p className="mt-6 text-cl">Categoria: {category}</p>
-          <p className="mt-6 text-cl">Peso: {weight} g</p>
-          <p className="mt-6 text-cl">Medidas: {measurements}</p>
+          <p className="mt-6 text-cl">
+            {material ? `Material:` : ""} {material}
+          </p>
+          <p className="mt-6 text-cl">
+            {weight ? `Peso:` : ""} {weight} {weight ? `g` : ""}
+          </p>
+          <p className="mt-6 text-cl">
+            {measurements ? `Medidas:` : ""} {measurements}
+          </p>
 
           {/* Size */}
           {/* {sizes.length > 0 ? (
