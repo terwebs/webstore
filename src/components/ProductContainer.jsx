@@ -1,12 +1,18 @@
+// ProductContainer.jsx
+
 import ProductsList from "./ProductsList";
 import ProductsGrid from "./ProductsGrid";
-import { useLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { BsFillGridFill, BsList } from "react-icons/bs";
+import { useInfiniteScroll } from "../../hooks/useInfiniteScroll"; // Import the custom hook
+import { useLoaderData } from "react-router-dom";
 
-export default function ProductContainer() {
-  const { response } = useLoaderData();
-  const totalProducts = response.data.total;
+export default function ProductContainer({ initialProducts, initialParams }) {
+  // Use the custom hook here, passing the initial products and params
+  const { products, isLoading, hasMore, ref } = useInfiniteScroll(
+    initialProducts,
+    initialParams
+  );
 
   const [layout, setLayout] = useState(() => {
     return localStorage.getItem("layout") || "grid";
@@ -17,12 +23,11 @@ export default function ProductContainer() {
   }, [layout]);
 
   const setActiveStyle = (pattern) => {
-    return `text-xl btn btn-circle btn-sm ${
-      pattern === layout
-        ? `btn-primary text-primary text-primary-content`
-        : `btn-ghost text-based-concent`
-    }`;
+    // ... same as before ...
   };
+
+  const { response } = useLoaderData();
+  const totalProducts = response.data.total;
 
   return (
     <>
@@ -49,17 +54,29 @@ export default function ProductContainer() {
         </div>
       </div>
       {/* END HEADER */}
+
       {/* PRODUCTS */}
       <div>
-        {totalProducts === 0 ? (
+        {products.length === 0 ? (
           <h5 className="text 2xl mt-16">Sorry, no products found...</h5>
         ) : layout === "grid" ? (
-          <ProductsGrid />
+          <ProductsGrid products={products} />
         ) : (
-          <ProductsList />
+          <ProductsList products={products} />
         )}
       </div>
-      {/* check if there is no product, and then check if layout is grid or list */}
+
+      {/* This is the element that the observer will watch */}
+      {hasMore && (
+        <div ref={ref} className="text-center my-4">
+          {isLoading ? (
+            <span className="loading loading-spinner loading-lg"></span>
+          ) : (
+            <p>Load More...</p>
+          )}
+        </div>
+      )}
+
       {/* END PRODUCTS */}
     </>
   );

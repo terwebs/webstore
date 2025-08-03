@@ -1,7 +1,7 @@
 import { Link, useLoaderData } from "react-router-dom";
 import { formatPrice } from "../utils";
-export default function ProductsGrid() {
-  const { products } = useLoaderData();
+export default function ProductsGrid({ products }) {
+  // const { products } = useLoaderData();
 
   return (
     <div className="pt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3 ">

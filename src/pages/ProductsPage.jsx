@@ -1,16 +1,22 @@
-import { Filters, ProductContainer, PaginationContainer } from "../components";
+import { useLoaderData } from "react-router-dom"; // Import the hook
+import { Filters, ProductContainer } from "../components";
 import { customFetch } from "../utils";
 
 export const loader = async ({ request }) => {
+  // ... your loader logic is correct ...
   const params = Object.fromEntries([
     ...new URL(request.url).searchParams.entries(),
   ]);
 
   const response = await customFetch("/entries", {
-    params: { ...params, content_type: "product" },
+    params: {
+      ...params,
+      content_type: "product",
+      limit: 9, // Add the limit parameter
+      skip: 0, // Initial skip is 0
+    },
   });
 
-  // console.log(response);
   if (response.data.total === 0) {
     const products = [];
     return { response, products, params };
@@ -19,11 +25,8 @@ export const loader = async ({ request }) => {
   const items = response.data.items;
   const assets = response.data.includes.Asset;
 
-  // Map entries to include image URLs
   const products = items.map((item) => {
     let imageUrl = "";
-
-    // Assuming the image field in the product is named 'image'
     if (item.fields.image && item.fields.image.sys) {
       const assetId = item.fields.image.sys.id;
       const asset = assets.find((a) => a.sys.id === assetId);
@@ -34,20 +37,22 @@ export const loader = async ({ request }) => {
 
     return {
       ...item,
-      imageUrl: imageUrl.startsWith("//") ? `https:${imageUrl}` : imageUrl, // Ensure URL is complete
+      imageUrl: imageUrl.startsWith("//") ? `https:${imageUrl}` : imageUrl,
     };
   });
 
-  // console.log(products);
   return { response, products, params };
 };
 
 const ProductsPage = () => {
+  // Use the useLoaderData hook to access the data returned by the loader
+  const { products, params } = useLoaderData();
+
   return (
     <div>
       <Filters />
-      <ProductContainer />
-      <PaginationContainer />
+      {/* Now pass the variables to the ProductContainer */}
+      <ProductContainer initialProducts={products} initialParams={params} />
     </div>
   );
 };
