@@ -1,4 +1,7 @@
-import { Filters, ProductContainer, PaginationContainer } from "../components";
+// ProductsPage.jsx
+
+import { useLoaderData } from "react-router-dom";
+import { Filters, ProductContainer } from "../components";
 import { customFetch } from "../utils";
 
 export const loader = async ({ request }) => {
@@ -6,48 +9,76 @@ export const loader = async ({ request }) => {
     ...new URL(request.url).searchParams.entries(),
   ]);
 
-  const response = await customFetch("/entries", {
-    params: { ...params, content_type: "product" },
+  const productsResponse = await customFetch("/entries", {
+    params: {
+      ...params,
+      content_type: "product",
+      limit: 9,
+      skip: 0,
+    },
   });
 
-  // console.log(response);
-  if (response.data.total === 0) {
-    const products = [];
-    return { response, products, params };
+  // Second fetch for all filters
+  const filtersResponse = await customFetch("/entries", {
+    params: {
+      content_type: "product",
+    },
+  });
+
+  // Handle the case where no products are found immediately
+  if (productsResponse.data.total === 0) {
+    return {
+      products: [],
+      params,
+      allProductsForFilters: filtersResponse.data.items || [],
+      totalProducts: 0,
+    };
   }
 
-  const items = response.data.items;
-  const assets = response.data.includes.Asset;
+  const productsItems = productsResponse.data.items || [];
+  // Use optional chaining `?.` to safely access the 'Asset' property
+  const productsAssets = productsResponse.data.includes?.Asset || [];
+  const filtersItems = filtersResponse.data.items || [];
 
-  // Map entries to include image URLs
-  const products = items.map((item) => {
+  const products = productsItems.map((item) => {
     let imageUrl = "";
-
-    // Assuming the image field in the product is named 'image'
     if (item.fields.image && item.fields.image.sys) {
       const assetId = item.fields.image.sys.id;
-      const asset = assets.find((a) => a.sys.id === assetId);
-      if (asset && asset.fields && asset.fields.file && asset.fields.file.url) {
+      // You also need to safely find the asset, as productsAssets could be empty
+      const asset = productsAssets.find((a) => a.sys.id === assetId);
+      if (asset?.fields?.file?.url) {
+        // Use optional chaining here too
         imageUrl = asset.fields.file.url;
       }
     }
-
     return {
       ...item,
-      imageUrl: imageUrl.startsWith("//") ? `https:${imageUrl}` : imageUrl, // Ensure URL is complete
+      imageUrl: imageUrl.startsWith("//") ? `https:${imageUrl}` : imageUrl,
     };
   });
 
-  // console.log(products);
-  return { response, products, params };
+  const totalProducts = productsResponse.data.total;
+
+  return {
+    products,
+    params,
+    allProductsForFilters: filtersItems,
+    totalProducts,
+  };
 };
 
 const ProductsPage = () => {
+  const { products, params, allProductsForFilters, totalProducts } =
+    useLoaderData();
+
   return (
     <div>
-      <Filters />
-      <ProductContainer />
-      <PaginationContainer />
+      <Filters allProducts={allProductsForFilters} />
+      <ProductContainer
+        initialProducts={products}
+        initialParams={params}
+        totalProducts={totalProducts}
+      />
     </div>
   );
 };
