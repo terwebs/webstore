@@ -4,9 +4,12 @@
 
 @font-face {
   font-family: "Stolen Love";
-  src: url("/fonts/StolenLove.ttf") format("truetype");
+  src: url("/fonts/StolenLove.otf") format("opentype"),
+    /* Optional: Add other formats as a fallback for older browsers */
+      url("/fonts/StolenLoveLight.woff2") format("opentype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @layer components {

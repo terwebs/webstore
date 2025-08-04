@@ -5,9 +5,11 @@ import FormRange from "./FormRange";
 import { getContenfulFilters } from "../utils";
 import { useState } from "react";
 
-export default function Filters() {
-  const { products, params } = useLoaderData();
-  const { categories, companies } = getContenfulFilters(products);
+// The Filters component now receives a prop named 'allProducts'
+export default function Filters({ allProducts }) {
+  const { params } = useLoaderData();
+  // We now call getContenfulFilters with the allProducts array
+  const { categories, companies } = getContenfulFilters(allProducts);
 
   const {
     "fields.title[match]": defaultSearch,
@@ -16,13 +18,11 @@ export default function Filters() {
     "fields.price[lte]": defaultPrice,
   } = params;
 
-  // State to manage form values
   const [search, setSearch] = useState(defaultSearch || "");
   const [category, setCategory] = useState(defaultCategory);
   const [company, setCompany] = useState(defaultCompany);
   const [price, setPrice] = useState(defaultPrice || 20000);
 
-  // Function to handle form reset
   const handleReset = () => {
     setSearch("");
     setCategory("All");

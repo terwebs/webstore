@@ -9,7 +9,6 @@ export const customFetch = axios.create({
   baseURL: productionUrl,
   params: {
     access_token: accessToken,
-    limit: 9,
   },
 });
 

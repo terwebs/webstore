@@ -10,17 +10,13 @@ export function useInfiniteScroll(initialProducts, initialParams) {
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
-  // 'ref' will be attached to the element we want to observe
-  // 'inView' will be true when the element is in the viewport
   const { ref, inView } = useInView({
-    // Trigger the fetch as soon as the element is visible
     rootMargin: "200px",
   });
 
-  // A ref to hold the current query parameters
   const paramsRef = useRef(initialParams);
+  const productIdsRef = useRef(new Set(initialProducts.map((p) => p.sys.id)));
 
-  // Function to fetch more products
   const fetchMoreProducts = async () => {
     if (!hasMore || isLoading) return;
 
@@ -31,25 +27,20 @@ export function useInfiniteScroll(initialProducts, initialParams) {
         params: {
           ...paramsRef.current,
           content_type: "product",
-          skip: nextPage * 9, // Assuming limit is 9, skip calculation is (page * limit)
+          // CORRECTED: Calculate skip based on the number of products already loaded
+          skip: (nextPage - 1) * 9,
         },
       });
 
-      const items = response.data.items;
-      const assets = response.data.includes.Asset;
+      const items = response.data.items || [];
+      const assets = response.data.includes?.Asset || [];
 
-      // Map entries to include image URLs
       const newProducts = items.map((item) => {
         let imageUrl = "";
         if (item.fields.image && item.fields.image.sys) {
           const assetId = item.fields.image.sys.id;
           const asset = assets.find((a) => a.sys.id === assetId);
-          if (
-            asset &&
-            asset.fields &&
-            asset.fields.file &&
-            asset.fields.file.url
-          ) {
+          if (asset?.fields?.file?.url) {
             imageUrl = asset.fields.file.url;
           }
         }
@@ -59,11 +50,18 @@ export function useInfiniteScroll(initialProducts, initialParams) {
         };
       });
 
-      setProducts((prevProducts) => [...prevProducts, ...newProducts]);
+      // Filter out any duplicates before adding to the state
+      const uniqueNewProducts = newProducts.filter(
+        (newProduct) => !productIdsRef.current.has(newProduct.sys.id)
+      );
+
+      // Add the new product IDs to our ref
+      uniqueNewProducts.forEach((p) => productIdsRef.current.add(p.sys.id));
+
+      setProducts((prevProducts) => [...prevProducts, ...uniqueNewProducts]);
       setPage(nextPage);
 
-      // Check if there are more products to fetch
-      if (response.data.items.length === 0 || response.data.items.length < 9) {
+      if (uniqueNewProducts.length === 0 || uniqueNewProducts.length < 9) {
         setHasMore(false);
       }
     } catch (error) {
@@ -79,13 +77,13 @@ export function useInfiniteScroll(initialProducts, initialParams) {
     }
   }, [inView, hasMore]);
 
-  // Handle filter changes
+  // This effect handles filter changes. We now also reset our product IDs ref.
   useEffect(() => {
-    // This effect runs whenever the params from the loader change (e.g., from filters)
     setProducts(initialProducts);
     setPage(1);
     setHasMore(true);
-    paramsRef.current = initialParams; // Update the ref with new params
+    paramsRef.current = initialParams;
+    productIdsRef.current = new Set(initialProducts.map((p) => p.sys.id));
   }, [initialProducts, initialParams]);
 
   return { products, isLoading, hasMore, ref };
