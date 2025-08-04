@@ -9,7 +9,7 @@ const FormInput = ({ label, name, type, value, onChange, size, required }) => {
         name={name}
         value={value}
         onChange={onChange}
-        className={`input input-bordered rounded-xl ${size}`}
+        className={`input input-bordered rounded-xl ${size} w-full max-w-full`}
         required={required}
       />
     </div>

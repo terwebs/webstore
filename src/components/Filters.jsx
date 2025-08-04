@@ -31,7 +31,7 @@ export default function Filters({ allProducts }) {
   };
 
   return (
-    <Form className="bg-base-200 rounded-md px-8 py-4 grid gap-x-4 gap-y-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 items-center">
+    <Form className="bg-base-200 rounded-md px-4 py-4 grid gap-x-4 gap-y-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 items-center">
       {/* SEARCH */}
       <FormInput
         type="search"
