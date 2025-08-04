@@ -21,7 +21,7 @@ export default function Filters({ allProducts }) {
   const [search, setSearch] = useState(defaultSearch || "");
   const [category, setCategory] = useState(defaultCategory);
   const [company, setCompany] = useState(defaultCompany);
-  const [price, setPrice] = useState(defaultPrice || 20000);
+  const [price, setPrice] = useState(defaultPrice || 50000);
 
   const handleReset = () => {
     setSearch("");
