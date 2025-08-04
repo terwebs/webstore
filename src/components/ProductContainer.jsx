@@ -48,13 +48,13 @@ export default function ProductContainer({
           >
             <BsFillGridFill />
           </button>
-          <button
+          {/* <button
             type="button"
             onClick={() => setLayout("list")}
             className={setActiveStyle("list")}
           >
             <BsList />
-          </button>
+          </button> */}
         </div>
       </div>
       {/* END HEADER */}
