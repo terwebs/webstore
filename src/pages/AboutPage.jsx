@@ -52,7 +52,7 @@ export default function AboutPage() {
           </li>
           <li>
             <a
-              href="https://wa.me/+50581647886"
+              href="https://wa.me/+50557857544"
               target="_blank"
               rel="noreferrer"
             >
