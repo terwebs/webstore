@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { MdSunny } from "react-icons/md";
 import NavLinks from "./NavLinks";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo-e-512.png";
 
 // use this to load the data from redux state
 import { useSelector } from "react-redux";
